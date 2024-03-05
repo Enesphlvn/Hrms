@@ -2,16 +2,15 @@ package com.hrms.business.abstracts;
 
 import com.hrms.core.utilities.results.DataResult;
 import com.hrms.core.utilities.results.Result;
-import com.hrms.domain.Position;
-import com.hrms.dtos.PositionAddDto;
-import com.hrms.dtos.PositionUpdateDto;
-import com.hrms.dtos.PositionsGetAllDto;
+import com.hrms.dtos.positionDtos.CreatePositionDto;
+import com.hrms.dtos.positionDtos.UpdatePositionDto;
+import com.hrms.dtos.positionDtos.GetPositionDto;
 
 import java.util.List;
 
 public interface PositionService {
-    DataResult<List<PositionsGetAllDto>> getAll();
-    Result add(PositionAddDto positionAddDto);
+    DataResult<List<GetPositionDto>> getAll();
+    Result add(CreatePositionDto createPositionDto);
     Result delete(int id);
-    Result update(int id, PositionUpdateDto positionUpdateDto);
+    Result update(int id, UpdatePositionDto updatePositionDto);
 }

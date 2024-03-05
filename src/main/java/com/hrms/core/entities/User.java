@@ -20,14 +20,9 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @Email(message = "Lütfen geçerli bir email adresi giriniz!")
-    @NotBlank
-    @NotNull
     @Column(name = "email_address")
     private String emailAddress;
 
-    @NotBlank
-    @NotNull
     @Column(name = "password")
     private String password;
 }

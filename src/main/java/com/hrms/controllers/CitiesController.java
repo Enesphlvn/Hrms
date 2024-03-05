@@ -1,9 +1,8 @@
 package com.hrms.controllers;
 
 import com.hrms.business.abstracts.CityService;
-import com.hrms.domain.City;
-import com.hrms.dtos.CityAddDto;
-import com.hrms.dtos.CityUpdateDto;
+import com.hrms.dtos.cityDtos.CreateCityDto;
+import com.hrms.dtos.cityDtos.UpdateCityDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class CitiesController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestBody CityAddDto cityAddDto){
+    public ResponseEntity<?> add(@Valid @RequestBody CreateCityDto cityAddDto){
         return ResponseEntity.ok(this.cityService.add(cityAddDto));
     }
 
@@ -34,7 +33,7 @@ public class CitiesController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody CityUpdateDto cityUpdateDto){
-        return ResponseEntity.ok(this.cityService.update(id, cityUpdateDto));
+    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdateCityDto updateCityDto){
+        return ResponseEntity.ok(this.cityService.update(id, updateCityDto));
     }
 }

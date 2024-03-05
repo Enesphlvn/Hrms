@@ -1,4 +1,4 @@
-package com.hrms.dtos;
+package com.hrms.dtos.cityDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsersGetAllDto {
+public class GetCityDto {
 
-    private int id;
-    private String emailAddress;
+    private int cityId;
+    private String cityName;
 }

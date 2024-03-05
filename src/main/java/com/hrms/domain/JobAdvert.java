@@ -23,38 +23,25 @@ public class JobAdvert {
     private int id;
 
     @Column(name = "title")
-    @NotBlank
-    @NotNull
     private String title;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "min_salary")
-    @NotBlank
-    @NotNull
     private int minSalary;
 
     @Column(name = "max_salary")
-    @NotBlank
-    @NotNull
     private int maxSalary;
 
     @Column(name = "number_of_available_positions")
-    @Min(value = 1, message = "Mevcut pozisyon sayısı 1 veya daha fazla olmalıdır!")
-    @NotBlank
-    @NotNull
     private int numberOfAvailablePositions;
 
     @Column(name = "deadline")
-    @NotBlank
-    @NotNull
     private LocalDate deadline;
 
     @Column(name = "advert_situation")
-    @NotBlank
-    @NotNull
-    private boolean advertSituation = true;
+    private boolean advertSituation;
 
     @ManyToOne
     @JsonBackReference

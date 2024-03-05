@@ -2,9 +2,9 @@ package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.UserService;
 import com.hrms.core.utilities.results.*;
-import com.hrms.dtos.UserAddDto;
-import com.hrms.dtos.UserUpdateDto;
-import com.hrms.dtos.UsersGetAllDto;
+import com.hrms.dtos.userDtos.CreateUserDto;
+import com.hrms.dtos.userDtos.UpdateUserDto;
+import com.hrms.dtos.userDtos.GetUserDto;
 import com.hrms.repository.UserRepository;
 import com.hrms.core.entities.User;
 import org.modelmapper.ModelMapper;
@@ -13,22 +13,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-public class UserImpl implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public Result add(UserAddDto userAddDto) {
-        User user = modelMapper.map(userAddDto, User.class);
+    public Result add(CreateUserDto createUserDto) {
+        User user = this.modelMapper.map(createUserDto, User.class);
         String userEmail = user.getEmailAddress().toLowerCase();
         List<User> existingUsers = this.userRepository.findAll();
 
@@ -50,13 +49,13 @@ public class UserImpl implements UserService {
     }
 
     @Override
-    public Result update(int id, UserUpdateDto userUpdateDto) {
+    public Result update(int id, UpdateUserDto updateUserDto) {
         Optional<User> resultUser = this.userRepository.findById(id);
         if (resultUser.isPresent()) {
-            resultUser.get().setEmailAddress(userUpdateDto.getEmailAddress());
-            resultUser.get().setPassword(userUpdateDto.getPassword());
+            resultUser.get().setEmailAddress(updateUserDto.getEmailAddress());
+            resultUser.get().setPassword(updateUserDto.getPassword());
 
-            modelMapper.map(userRepository.save(resultUser.get()), UserUpdateDto.class);
+            this.modelMapper.map(this.userRepository.save(resultUser.get()), UpdateUserDto.class);
             return new SuccessResult("Kullanıcı güncellendi");
         } else {
             return new ErrorResult("Kullanıcı bulunamadı");
@@ -64,9 +63,7 @@ public class UserImpl implements UserService {
     }
 
     @Override
-    public DataResult<List<UsersGetAllDto>> getAll() {
-        List<User> users = this.userRepository.findAll();
-        List<UsersGetAllDto> usersDto = users.stream().map(user -> modelMapper.map(user, UsersGetAllDto.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<UsersGetAllDto>>(usersDto, "Kullanıcılar listelendi");
+    public DataResult<List<GetUserDto>> getAll() {
+        return new SuccessDataResult<List<GetUserDto>>(this.userRepository.getUserDto(), "Kullanıcılar listelendi");
     }
 }

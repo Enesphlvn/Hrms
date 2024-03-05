@@ -2,16 +2,15 @@ package com.hrms.business.abstracts;
 
 import com.hrms.core.utilities.results.DataResult;
 import com.hrms.core.utilities.results.Result;
-import com.hrms.core.entities.User;
-import com.hrms.dtos.UserAddDto;
-import com.hrms.dtos.UserUpdateDto;
-import com.hrms.dtos.UsersGetAllDto;
+import com.hrms.dtos.userDtos.CreateUserDto;
+import com.hrms.dtos.userDtos.UpdateUserDto;
+import com.hrms.dtos.userDtos.GetUserDto;
 
 import java.util.List;
 
 public interface UserService {
-    DataResult<List<UsersGetAllDto>> getAll();
-    Result add(UserAddDto userAddDto);
+    DataResult<List<GetUserDto>> getAll();
+    Result add(CreateUserDto createUserDto);
     Result delete(int id);
-    Result update(int id, UserUpdateDto userUpdateDto);
+    Result update(int id, UpdateUserDto updateUserDto);
 }

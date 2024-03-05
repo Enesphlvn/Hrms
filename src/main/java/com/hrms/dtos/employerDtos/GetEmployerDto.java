@@ -1,4 +1,4 @@
-package com.hrms.dtos;
+package com.hrms.dtos.employerDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployerUpdateDto {
+public class GetEmployerDto {
 
+    private int id;
     private String emailAddress;
-    private String password;
     private String companyName;
 }

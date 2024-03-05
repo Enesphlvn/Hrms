@@ -1,4 +1,4 @@
-package com.hrms.dtos;
+package com.hrms.dtos.jobAdvertDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,8 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobAdvertDetailDto {
+public class GetJobAdvertDto {
+
     private int id;
     private String title;
     private String description;
@@ -18,9 +19,8 @@ public class JobAdvertDetailDto {
     private int numberOfAvailablePositions;
     private LocalDate deadline;
     private boolean advertSituation;
-    private String employerCompanyName;
-    private String candidateName;
-    private String candidateSurname;
-    private String positionName;
-    private String cityName;
+    private int employerId;
+    private int positionId;
+    private int candidateId;
+    private int cityId;
 }

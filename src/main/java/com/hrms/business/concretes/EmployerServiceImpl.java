@@ -2,9 +2,9 @@ package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.EmployerService;
 import com.hrms.core.utilities.results.*;
-import com.hrms.dtos.EmployerAddDto;
-import com.hrms.dtos.EmployerDetailDto;
-import com.hrms.dtos.EmployerUpdateDto;
+import com.hrms.dtos.employerDtos.CreateEmployerDto;
+import com.hrms.dtos.employerDtos.GetEmployerDto;
+import com.hrms.dtos.employerDtos.UpdateEmployerDto;
 import com.hrms.repository.EmployerRepository;
 import com.hrms.domain.Employer;
 import org.modelmapper.ModelMapper;
@@ -15,24 +15,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EmployerImpl implements EmployerService {
+public class EmployerServiceImpl implements EmployerService {
     private final EmployerRepository employerRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public EmployerImpl(EmployerRepository employerRepository, ModelMapper modelMapper) {
+    public EmployerServiceImpl(EmployerRepository employerRepository, ModelMapper modelMapper) {
         this.employerRepository = employerRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public DataResult<List<EmployerDetailDto>> getAll() {
-        return new SuccessDataResult<List<EmployerDetailDto>>(this.employerRepository.getEmployerDetails(), "İşverenler listelendi");
+    public DataResult<List<GetEmployerDto>> getAll() {
+        return new SuccessDataResult<List<GetEmployerDto>>(this.employerRepository.getEmployerDto(), "İşverenler listelendi");
     }
 
     @Override
-    public Result add(EmployerAddDto employerAddDto) {
-        Employer employer = modelMapper.map(employerAddDto, Employer.class);
+    public Result add(CreateEmployerDto createEmployerDto) {
+        Employer employer = this.modelMapper.map(createEmployerDto, Employer.class);
         String companyName = employer.getCompanyName().toLowerCase();
         String emailAddress = employer.getEmailAddress().toLowerCase();
         String[] emailParts = emailAddress.split("@");
@@ -67,14 +67,14 @@ public class EmployerImpl implements EmployerService {
     }
 
     @Override
-    public Result update(int id, EmployerUpdateDto employerUpdateDto) {
+    public Result update(int id, UpdateEmployerDto updateEmployerDto) {
         Optional<Employer> resultEmployer = this.employerRepository.findById(id);
         if (resultEmployer.isPresent()) {
-            resultEmployer.get().setEmailAddress(employerUpdateDto.getEmailAddress());
-            resultEmployer.get().setPassword(employerUpdateDto.getPassword());
-            resultEmployer.get().setCompanyName(employerUpdateDto.getCompanyName());
+            resultEmployer.get().setEmailAddress(updateEmployerDto.getEmailAddress());
+            resultEmployer.get().setPassword(updateEmployerDto.getPassword());
+            resultEmployer.get().setCompanyName(updateEmployerDto.getCompanyName());
 
-            modelMapper.map(this.employerRepository.save(resultEmployer.get()), EmployerUpdateDto.class);
+            this.modelMapper.map(this.employerRepository.save(resultEmployer.get()), UpdateEmployerDto.class);
             return new SuccessResult("İşveren güncellendi");
         } else {
             return new ErrorResult("İşveren bulunamadı");

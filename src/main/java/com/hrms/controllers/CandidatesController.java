@@ -1,9 +1,8 @@
 package com.hrms.controllers;
 
 import com.hrms.business.abstracts.CandidateService;
-import com.hrms.domain.Candidate;
-import com.hrms.dtos.CandidateAddDto;
-import com.hrms.dtos.CandidateUpdateDto;
+import com.hrms.dtos.candidateDtos.CreateCandidateDto;
+import com.hrms.dtos.candidateDtos.UpdateCandidateDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +23,13 @@ public class CandidatesController {
         return ResponseEntity.ok(this.candidateService.getAll());
     }
 
+    @GetMapping("/getCandidateDetails")
+    public ResponseEntity<?> getCandidateDetails(){
+        return ResponseEntity.ok(this.candidateService.getCandidateDetailDto());
+    }
+
     @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestBody CandidateAddDto candidateAddDto){
+    public ResponseEntity<?> add(@Valid @RequestBody CreateCandidateDto candidateAddDto){
         return ResponseEntity.ok(this.candidateService.add(candidateAddDto));
     }
 
@@ -35,7 +39,7 @@ public class CandidatesController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody CandidateUpdateDto candidateUpdateDto){
-        return ResponseEntity.ok(this.candidateService.update(id, candidateUpdateDto));
+    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdateCandidateDto updateCandidateDto){
+        return ResponseEntity.ok(this.candidateService.update(id, updateCandidateDto));
     }
 }

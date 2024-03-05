@@ -21,12 +21,14 @@ public class City {
     @Column(name = "city_id")
     private int cityId;
 
-    @NotBlank
-    @NotNull
     @Column(name = "city_name")
     private String cityName;
 
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<JobAdvert> job_adverts;
+
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Candidate> candidates;
 }

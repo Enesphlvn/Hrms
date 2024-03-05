@@ -1,9 +1,8 @@
 package com.hrms.controllers;
 
 import com.hrms.business.abstracts.JobAdvertService;
-import com.hrms.domain.JobAdvert;
-import com.hrms.dtos.JobAdvertAddDto;
-import com.hrms.dtos.JobAdvertUpdateDto;
+import com.hrms.dtos.jobAdvertDtos.CreateJobAdvertDto;
+import com.hrms.dtos.jobAdvertDtos.UpdateJobAdvertDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +23,19 @@ public class JobAdvertsController {
         return ResponseEntity.ok(this.jobAdvertService.getAll());
     }
 
+    @GetMapping("/getJobAdvertDetails")
+    public ResponseEntity<?> getJobAdvertDetails(){
+        return ResponseEntity.ok(this.jobAdvertService.getJobAdvertDetails());
+    }
+
     @GetMapping("/findByAdvertSituationTrue")
     public ResponseEntity<?> findByAdvertSituationTrue(){
         return ResponseEntity.ok(this.jobAdvertService.findByAdvertSituationTrue());
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestBody JobAdvertAddDto jobAdvertAddDto){
-        return ResponseEntity.ok(this.jobAdvertService.add(jobAdvertAddDto));
+    public ResponseEntity<?> add(@Valid @RequestBody CreateJobAdvertDto createJobAdvertDto){
+        return ResponseEntity.ok(this.jobAdvertService.add(createJobAdvertDto));
     }
 
     @DeleteMapping("/delete")
@@ -40,7 +44,7 @@ public class JobAdvertsController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody JobAdvertUpdateDto jobAdvertUpdateDto){
-        return ResponseEntity.ok(this.jobAdvertService.update(id, jobAdvertUpdateDto));
+    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdateJobAdvertDto updateJobAdvertDto){
+        return ResponseEntity.ok(this.jobAdvertService.update(id, updateJobAdvertDto));
     }
 }

@@ -1,9 +1,8 @@
 package com.hrms.controllers;
 
 import com.hrms.business.abstracts.EmployerService;
-import com.hrms.domain.Employer;
-import com.hrms.dtos.EmployerAddDto;
-import com.hrms.dtos.EmployerUpdateDto;
+import com.hrms.dtos.employerDtos.CreateEmployerDto;
+import com.hrms.dtos.employerDtos.UpdateEmployerDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +24,8 @@ public class EmployersController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestBody EmployerAddDto employerAddDto){
-        return ResponseEntity.ok(this.employerService.add(employerAddDto));
+    public ResponseEntity<?> add(@Valid @RequestBody CreateEmployerDto createEmployerDto){
+        return ResponseEntity.ok(this.employerService.add(createEmployerDto));
     }
 
     @DeleteMapping("/delete")
@@ -35,7 +34,7 @@ public class EmployersController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody EmployerUpdateDto employerUpdateDto){
-        return ResponseEntity.ok(this.employerService.update(id, employerUpdateDto));
+    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdateEmployerDto updateEmployerDto){
+        return ResponseEntity.ok(this.employerService.update(id, updateEmployerDto));
     }
 }

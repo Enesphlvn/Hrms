@@ -2,9 +2,9 @@ package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.CityService;
 import com.hrms.core.utilities.results.*;
-import com.hrms.dtos.CityAddDto;
-import com.hrms.dtos.CityGetAllDto;
-import com.hrms.dtos.CityUpdateDto;
+import com.hrms.dtos.cityDtos.CreateCityDto;
+import com.hrms.dtos.cityDtos.GetCityDto;
+import com.hrms.dtos.cityDtos.UpdateCityDto;
 import com.hrms.repository.CityRepository;
 import com.hrms.domain.City;
 import org.modelmapper.ModelMapper;
@@ -15,24 +15,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CityImpl implements CityService {
+public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CityImpl(CityRepository cityRepository, ModelMapper modelMapper) {
+    public CityServiceImpl(CityRepository cityRepository, ModelMapper modelMapper) {
         this.cityRepository = cityRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public DataResult<List<CityGetAllDto>> getAll() {
-        return new SuccessDataResult<List<CityGetAllDto>>(this.cityRepository.getCityDetails(), "Şehirler listelendi");
+    public DataResult<List<GetCityDto>> getAll() {
+        return new SuccessDataResult<List<GetCityDto>>(this.cityRepository.getCityDto(), "Şehirler listelendi");
     }
 
     @Override
-    public Result add(CityAddDto cityAddDto) {
-        City city = modelMapper.map(cityAddDto, City.class);
+    public Result add(CreateCityDto createCityDto) {
+        City city = this.modelMapper.map(createCityDto, City.class);
         String cityName = city.getCityName().toLowerCase();
         List<City> existingCities = this.cityRepository.findAll();
 
@@ -54,12 +54,12 @@ public class CityImpl implements CityService {
     }
 
     @Override
-    public Result update(int id, CityUpdateDto cityUpdateDto) {
+    public Result update(int id, UpdateCityDto updateCityDto) {
         Optional<City> resultCity = this.cityRepository.findById(id);
         if (resultCity.isPresent()) {
-            resultCity.get().setCityName(cityUpdateDto.getCityName());
+            resultCity.get().setCityName(updateCityDto.getCityName());
 
-            modelMapper.map(this.cityRepository.save(resultCity.get()), CityUpdateDto.class);
+            this.modelMapper.map(this.cityRepository.save(resultCity.get()), UpdateCityDto.class);
             return new SuccessResult("Şehir güncellendi");
         } else {
             return new ErrorResult("Şehir bulunamadı");

@@ -1,12 +1,12 @@
 package com.hrms.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hrms.core.entities.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -18,30 +18,22 @@ import java.util.List;
 @Table(name = "candidates")
 public class Candidate extends User {
 
-    @NotBlank
-    @NotNull
     @Column(name = "first_name")
     private String name;
 
-    @NotBlank
-    @NotNull
     @Column(name = "last_name")
     private String surname;
 
-    @NotBlank
-    @NotNull
     @Column(name = "age")
     private int age;
 
-    @NotBlank
-    @NotNull
-    @Column(name = "city")
-    private String city;
-
-    @NotBlank
-    @NotNull
     @Column(name = "profession")
     private String profession;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "city_id")
+    private City city;
 
     @OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY)
     @JsonManagedReference

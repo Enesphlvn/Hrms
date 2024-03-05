@@ -2,9 +2,9 @@ package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.PositionService;
 import com.hrms.core.utilities.results.*;
-import com.hrms.dtos.PositionAddDto;
-import com.hrms.dtos.PositionUpdateDto;
-import com.hrms.dtos.PositionsGetAllDto;
+import com.hrms.dtos.positionDtos.CreatePositionDto;
+import com.hrms.dtos.positionDtos.UpdatePositionDto;
+import com.hrms.dtos.positionDtos.GetPositionDto;
 import com.hrms.repository.PositionRepository;
 import com.hrms.domain.Position;
 import org.modelmapper.ModelMapper;
@@ -15,25 +15,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PositionImpl implements PositionService {
+public class PositionServiceImpl implements PositionService {
     private final PositionRepository positionRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public PositionImpl(PositionRepository positionRepository, ModelMapper modelMapper) {
+    public PositionServiceImpl(PositionRepository positionRepository, ModelMapper modelMapper) {
         this.positionRepository = positionRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public DataResult<List<PositionsGetAllDto>> getAll() {
-        List<PositionsGetAllDto> positionsDto = this.positionRepository.getPositionsDetails();
-        return new SuccessDataResult<List<PositionsGetAllDto>>(positionsDto, "Pozisyonlar listelendi");
+    public DataResult<List<GetPositionDto>> getAll() {
+        List<GetPositionDto> positionsDto = this.positionRepository.getPositionDto();
+        return new SuccessDataResult<List<GetPositionDto>>(positionsDto, "Pozisyonlar listelendi");
     }
 
     @Override
-    public Result add(PositionAddDto positionAddDto) {
-        Position position = modelMapper.map(positionAddDto, Position.class);
+    public Result add(CreatePositionDto createPositionDto) {
+        Position position = this.modelMapper.map(createPositionDto, Position.class);
         String positionName = position.getPositionName().toLowerCase();
         List<Position> existingPositions = this.positionRepository.findAll();
 
@@ -55,12 +55,12 @@ public class PositionImpl implements PositionService {
     }
 
     @Override
-    public Result update(int id, PositionUpdateDto positionUpdateDto) {
+    public Result update(int id, UpdatePositionDto updatePositionDto) {
         Optional<Position> resultPosition = this.positionRepository.findById(id);
         if (resultPosition.isPresent()) {
-            resultPosition.get().setPositionName(positionUpdateDto.getPositionName());
+            resultPosition.get().setPositionName(updatePositionDto.getPositionName());
 
-            modelMapper.map(positionRepository.save(resultPosition.get()), PositionUpdateDto.class);
+            this.modelMapper.map(this.positionRepository.save(resultPosition.get()), UpdatePositionDto.class);
             return new SuccessResult("Pozisyon güncellendi");
         } else {
             return new ErrorResult("Pozisyon bulunamadı");

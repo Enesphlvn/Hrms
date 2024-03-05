@@ -18,8 +18,6 @@ import java.util.List;
 @Table(name = "employers")
 public class Employer extends User {
 
-    @NotBlank
-    @NotNull
     @Column(name = "company_name")
     private String companyName;
 

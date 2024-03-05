@@ -1,8 +1,8 @@
 package com.hrms.controllers;
 
 import com.hrms.business.abstracts.PositionService;
-import com.hrms.dtos.PositionAddDto;
-import com.hrms.dtos.PositionUpdateDto;
+import com.hrms.dtos.positionDtos.CreatePositionDto;
+import com.hrms.dtos.positionDtos.UpdatePositionDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,8 @@ public class PositionsController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestBody PositionAddDto positionAddDto){
-        return ResponseEntity.ok(this.positionService.add(positionAddDto));
+    public ResponseEntity<?> add(@Valid @RequestBody CreatePositionDto createPositionDto){
+        return ResponseEntity.ok(this.positionService.add(createPositionDto));
     }
 
     @DeleteMapping("/delete")
@@ -34,7 +34,7 @@ public class PositionsController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody PositionUpdateDto positionUpdateDto){
-        return ResponseEntity.ok(this.positionService.update(id, positionUpdateDto));
+    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdatePositionDto updatePositionDto){
+        return ResponseEntity.ok(this.positionService.update(id, updatePositionDto));
     }
 }
