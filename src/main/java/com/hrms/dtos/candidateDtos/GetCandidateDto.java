@@ -11,6 +11,7 @@ public class GetCandidateDto {
 
     private int id;
     private String emailAddress;
+    private String password;
     private String name;
     private String surname;
     private int age;

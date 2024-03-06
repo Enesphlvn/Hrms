@@ -2,6 +2,7 @@ package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.CandidateService;
 import com.hrms.core.utilities.results.*;
+import com.hrms.core.utilities.security.hashing.PasswordHasher;
 import com.hrms.domain.City;
 import com.hrms.dtos.candidateDtos.CreateCandidateDto;
 import com.hrms.dtos.candidateDtos.GetCandidateDetailDto;
@@ -20,12 +21,14 @@ import java.util.Optional;
 @Service
 public class CandidateServiceImpl implements CandidateService {
     private final CandidateRepository candidateRepository;
+    private final PasswordHasher passwordHasher;
     private final CityRepository cityRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CandidateServiceImpl(CandidateRepository candidateRepository, CityRepository cityRepository, ModelMapper modelMapper) {
+    public CandidateServiceImpl(CandidateRepository candidateRepository, PasswordHasher passwordHasher, CityRepository cityRepository, ModelMapper modelMapper) {
         this.candidateRepository = candidateRepository;
+        this.passwordHasher = passwordHasher;
         this.cityRepository = cityRepository;
         this.modelMapper = modelMapper;
     }
@@ -47,6 +50,9 @@ public class CandidateServiceImpl implements CandidateService {
         City city = this.cityRepository.getById(createCandidateDto.getCityId());
 
         candidate.setCity(city);
+
+        String hashedPassword = this.passwordHasher.hashPassword(createCandidateDto.getPassword());
+        candidate.setPassword(hashedPassword);
 
         this.candidateRepository.save(candidate);
         return new SuccessResult("Aday eklendi");

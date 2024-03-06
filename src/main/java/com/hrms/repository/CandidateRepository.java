@@ -16,7 +16,7 @@ public interface CandidateRepository extends JpaRepository<Candidate, Integer> {
 //            "FROM JobAdvert j WHERE j.candidate.id = c.id)) FROM Candidate c")
 //    List<GetCandidateDetailDto> getCandidateDetailDto();
 
-    @Query("SELECT new com.hrms.dtos.candidateDtos.GetCandidateDto(c.id, c.emailAddress, c.name, c.surname, c.age, c.profession, c.city.cityId)" +
+    @Query("SELECT new com.hrms.dtos.candidateDtos.GetCandidateDto(c.id, c.emailAddress, c.password, c.name, c.surname, c.age, c.profession, c.city.cityId)" +
             "FROM Candidate c ORDER BY c.id")
     List<GetCandidateDto> getCandidateDto();
     Candidate getById(int id);

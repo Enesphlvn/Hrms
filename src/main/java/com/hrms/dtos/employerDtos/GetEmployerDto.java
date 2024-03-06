@@ -11,5 +11,6 @@ public class GetEmployerDto {
 
     private int id;
     private String emailAddress;
+    private String password;
     private String companyName;
 }

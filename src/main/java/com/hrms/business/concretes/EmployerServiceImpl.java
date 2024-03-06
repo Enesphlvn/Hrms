@@ -2,6 +2,7 @@ package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.EmployerService;
 import com.hrms.core.utilities.results.*;
+import com.hrms.core.utilities.security.hashing.PasswordHasher;
 import com.hrms.dtos.employerDtos.CreateEmployerDto;
 import com.hrms.dtos.employerDtos.GetEmployerDto;
 import com.hrms.dtos.employerDtos.UpdateEmployerDto;
@@ -17,11 +18,13 @@ import java.util.Optional;
 @Service
 public class EmployerServiceImpl implements EmployerService {
     private final EmployerRepository employerRepository;
+    private final PasswordHasher passwordHasher;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public EmployerServiceImpl(EmployerRepository employerRepository, ModelMapper modelMapper) {
+    public EmployerServiceImpl(EmployerRepository employerRepository, PasswordHasher passwordHasher, ModelMapper modelMapper) {
         this.employerRepository = employerRepository;
+        this.passwordHasher = passwordHasher;
         this.modelMapper = modelMapper;
     }
 
@@ -54,6 +57,9 @@ public class EmployerServiceImpl implements EmployerService {
         if (!emailCompanyName.equalsIgnoreCase(companyName)) {
             return new ErrorResult("Şirket ismi ve email adresi uyuşmuyor");
         }
+
+        String hashedPassword = this.passwordHasher.hashPassword(createEmployerDto.getPassword());
+        employer.setPassword(hashedPassword);
 
         this.employerRepository.save(employer);
         return new SuccessResult("İşveren eklendi");
