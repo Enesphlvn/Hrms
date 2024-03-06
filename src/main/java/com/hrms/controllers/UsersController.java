@@ -23,6 +23,11 @@ public class UsersController {
         return ResponseEntity.ok(this.userService.getAll());
     }
 
+    @GetMapping("/getByEmail")
+    public ResponseEntity<?> getByEmail(@Valid @RequestParam String email){
+        return ResponseEntity.ok(this.userService.getByEmail(email));
+    }
+
     @PostMapping("/add")
     public ResponseEntity<?> add(@Valid @RequestBody CreateUserDto createUserDto){
         return ResponseEntity.ok(this.userService.add(createUserDto));
@@ -33,8 +38,8 @@ public class UsersController {
         return ResponseEntity.ok(this.userService.delete(id));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdateUserDto updateUserDto){
-        return ResponseEntity.ok(this.userService.update(id, updateUserDto));
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody UpdateUserDto updateUserDto){
+        return ResponseEntity.ok(this.userService.update(updateUserDto));
     }
 }

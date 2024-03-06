@@ -12,5 +12,5 @@ public interface PositionService {
     DataResult<List<GetPositionDto>> getAll();
     Result add(CreatePositionDto createPositionDto);
     Result delete(int id);
-    Result update(int id, UpdatePositionDto updatePositionDto);
+    Result update(UpdatePositionDto updatePositionDto);
 }

@@ -1,5 +1,6 @@
 package com.hrms.business.abstracts;
 
+import com.hrms.core.entities.User;
 import com.hrms.core.utilities.results.DataResult;
 import com.hrms.core.utilities.results.Result;
 import com.hrms.dtos.userDtos.CreateUserDto;
@@ -12,5 +13,7 @@ public interface UserService {
     DataResult<List<GetUserDto>> getAll();
     Result add(CreateUserDto createUserDto);
     Result delete(int id);
-    Result update(int id, UpdateUserDto updateUserDto);
+    Result update(UpdateUserDto updateUserDto);
+
+    DataResult<User> getByEmail(String email);
 }

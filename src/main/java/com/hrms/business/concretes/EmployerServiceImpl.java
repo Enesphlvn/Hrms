@@ -67,14 +67,15 @@ public class EmployerServiceImpl implements EmployerService {
     }
 
     @Override
-    public Result update(int id, UpdateEmployerDto updateEmployerDto) {
-        Optional<Employer> resultEmployer = this.employerRepository.findById(id);
+    public Result update(UpdateEmployerDto updateEmployerDto) {
+        Optional<Employer> resultEmployer = this.employerRepository.findById(updateEmployerDto.getId());
         if (resultEmployer.isPresent()) {
             resultEmployer.get().setEmailAddress(updateEmployerDto.getEmailAddress());
             resultEmployer.get().setPassword(updateEmployerDto.getPassword());
             resultEmployer.get().setCompanyName(updateEmployerDto.getCompanyName());
 
             this.modelMapper.map(this.employerRepository.save(resultEmployer.get()), UpdateEmployerDto.class);
+
             return new SuccessResult("İşveren güncellendi");
         } else {
             return new ErrorResult("İşveren bulunamadı");

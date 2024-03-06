@@ -30,10 +30,10 @@ public class CandidateServiceImpl implements CandidateService {
         this.modelMapper = modelMapper;
     }
 
-    @Override
-    public DataResult<List<GetCandidateDetailDto>> getCandidateDetailDto() {
-        return new SuccessDataResult<List<GetCandidateDetailDto>>(this.candidateRepository.getCandidateDetailDto(), "Aday detayları listelendi");
-    }
+//    @Override
+//    public DataResult<List<GetCandidateDetailDto>> getCandidateDetailDto() {
+//        return new SuccessDataResult<List<GetCandidateDetailDto>>(this.candidateRepository.getCandidateDetailDto(), "Aday detayları listelendi");
+//    }
 
     @Override
     public DataResult<List<GetCandidateDto>> getAll() {
@@ -60,8 +60,8 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public Result update(int id, UpdateCandidateDto updateCandidateDto) {
-        Optional<Candidate> resultCandidate = this.candidateRepository.findById(id);
+    public Result update(UpdateCandidateDto updateCandidateDto) {
+        Optional<Candidate> resultCandidate = this.candidateRepository.findById(updateCandidateDto.getId());
         City city = this.cityRepository.getById(updateCandidateDto.getCityId());
 
         if (resultCandidate.isPresent()) {

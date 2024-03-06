@@ -32,7 +32,7 @@ public class CreateJobAdvertDto {
     @Future(message = "Son başvuru tarihi gelecek bir tarih olmalıdır.")
     private LocalDate deadline;
 
-    @AssertTrue(message = "İlan durumu 'true' veya 'false' olmalıdır.")
+    @AssertTrue(message = "İlan durumu, ilan oluşturulurken 'true' olmalıdır.")
     private boolean advertSituation = true;
 
     @Min(value = 1, message = "Lütfen pozitif bir Id değeri girin.")

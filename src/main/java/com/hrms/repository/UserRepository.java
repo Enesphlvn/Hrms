@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    @Query("SELECT new com.hrms.dtos.userDtos.GetUserDto(u.id, u.emailAddress) FROM User u")
+    @Query("SELECT new com.hrms.dtos.userDtos.GetUserDto(u.id, u.emailAddress, u.password) FROM User u ORDER BY u.id")
     List<GetUserDto> getUserDto();
+
+    @Query("FROM User u WHERE emailAddress=:email")
+    User getByEmailAddress(String email);
 }

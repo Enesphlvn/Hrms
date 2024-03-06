@@ -10,9 +10,9 @@ import com.hrms.dtos.candidateDtos.UpdateCandidateDto;
 import java.util.List;
 
 public interface CandidateService {
-    DataResult<List<GetCandidateDetailDto>> getCandidateDetailDto();
+//    DataResult<List<GetCandidateDetailDto>> getCandidateDetailDto();
     DataResult<List<GetCandidateDto>> getAll();
     Result add(CreateCandidateDto createCandidateDto);
     Result delete(int id);
-    Result update(int id, UpdateCandidateDto updateCandidateDto);
+    Result update(UpdateCandidateDto updateCandidateDto);
 }

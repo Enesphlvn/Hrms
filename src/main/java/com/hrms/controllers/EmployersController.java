@@ -33,8 +33,8 @@ public class EmployersController {
         return ResponseEntity.ok(this.employerService.delete(id));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdateEmployerDto updateEmployerDto){
-        return ResponseEntity.ok(this.employerService.update(id, updateEmployerDto));
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody UpdateEmployerDto updateEmployerDto){
+        return ResponseEntity.ok(this.employerService.update(updateEmployerDto));
     }
 }

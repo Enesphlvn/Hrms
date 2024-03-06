@@ -43,8 +43,8 @@ public class JobAdvertsController {
         return ResponseEntity.ok(this.jobAdvertService.delete(id));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdateJobAdvertDto updateJobAdvertDto){
-        return ResponseEntity.ok(this.jobAdvertService.update(id, updateJobAdvertDto));
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody UpdateJobAdvertDto updateJobAdvertDto){
+        return ResponseEntity.ok(this.jobAdvertService.update(updateJobAdvertDto));
     }
 }

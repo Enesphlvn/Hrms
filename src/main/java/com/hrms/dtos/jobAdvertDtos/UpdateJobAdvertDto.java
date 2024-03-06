@@ -12,6 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UpdateJobAdvertDto {
 
+    @Min(value = 1, message = "Lütfen pozitif bir Id değeri girin.")
+    private int id;
+
     @Size(min = 3, message = "Şehir adı minimum üç karakter uzunluğunda olmalıdır.")
     @NotBlank(message = "Şehir alanı zorunludur.")
     @NotNull(message = "Şehir alanı zorunludur.")
@@ -32,7 +35,6 @@ public class UpdateJobAdvertDto {
     @Future(message = "Son başvuru tarihi gelecek bir tarih olmalıdır.")
     private LocalDate deadline;
 
-    @AssertTrue(message = "İlan durumu 'true' veya 'false' olmalıdır.")
     private boolean advertSituation;
 
     @Min(value = 1, message = "Lütfen pozitif bir Id değeri girin.")

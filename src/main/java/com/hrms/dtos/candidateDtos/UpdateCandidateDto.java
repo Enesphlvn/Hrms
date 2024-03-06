@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateCandidateDto {
 
+    @Min(value = 1, message = "Lütfen pozitif bir Id değeri girin.")
+    private int id;
+
     @Size(min = 3, message = "Aday adı minimum üç karakter uzunluğunda olmalı")
     @NotBlank(message = "İsim alanı zorunludur.")
     @NotNull(message = "İsim alanı zorunludur.")

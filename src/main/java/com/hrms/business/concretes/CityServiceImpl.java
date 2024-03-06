@@ -54,8 +54,8 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public Result update(int id, UpdateCityDto updateCityDto) {
-        Optional<City> resultCity = this.cityRepository.findById(id);
+    public Result update(UpdateCityDto updateCityDto) {
+        Optional<City> resultCity = this.cityRepository.findById(updateCityDto.getCityId());
         if (resultCity.isPresent()) {
             resultCity.get().setCityName(updateCityDto.getCityName());
 

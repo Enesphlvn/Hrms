@@ -2,6 +2,7 @@ package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.UserService;
 import com.hrms.core.utilities.results.*;
+import com.hrms.core.utilities.security.hashing.PasswordHasher;
 import com.hrms.dtos.userDtos.CreateUserDto;
 import com.hrms.dtos.userDtos.UpdateUserDto;
 import com.hrms.dtos.userDtos.GetUserDto;
@@ -17,11 +18,13 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final PasswordHasher passwordHasher;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, PasswordHasher passwordHasher, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.passwordHasher = passwordHasher;
         this.modelMapper = modelMapper;
     }
 
@@ -37,6 +40,9 @@ public class UserServiceImpl implements UserService {
             }
         }
 
+        String hashedPassword = passwordHasher.hashPassword(createUserDto.getPassword());
+        user.setPassword(hashedPassword);
+
         this.userRepository.save(user);
         return new SuccessResult("Kullanıcı eklendi");
     }
@@ -49,8 +55,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result update(int id, UpdateUserDto updateUserDto) {
-        Optional<User> resultUser = this.userRepository.findById(id);
+    public Result update(UpdateUserDto updateUserDto) {
+        Optional<User> resultUser = this.userRepository.findById(updateUserDto.getId());
         if (resultUser.isPresent()) {
             resultUser.get().setEmailAddress(updateUserDto.getEmailAddress());
             resultUser.get().setPassword(updateUserDto.getPassword());
@@ -60,6 +66,11 @@ public class UserServiceImpl implements UserService {
         } else {
             return new ErrorResult("Kullanıcı bulunamadı");
         }
+    }
+
+    @Override
+    public DataResult<User> getByEmail(String email) {
+        return new SuccessDataResult<User>(this.userRepository.getByEmailAddress(email));
     }
 
     @Override

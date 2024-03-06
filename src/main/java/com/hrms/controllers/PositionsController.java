@@ -33,8 +33,8 @@ public class PositionsController {
         return ResponseEntity.ok(this.positionService.delete(id));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdatePositionDto updatePositionDto){
-        return ResponseEntity.ok(this.positionService.update(id, updatePositionDto));
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody UpdatePositionDto updatePositionDto){
+        return ResponseEntity.ok(this.positionService.update(updatePositionDto));
     }
 }

@@ -12,6 +12,6 @@ public interface CityService {
     DataResult<List<GetCityDto>> getAll();
     Result add(CreateCityDto createCityDto);
     Result delete(int id);
-    Result update(int id, UpdateCityDto updateCityDto);
+    Result update(UpdateCityDto updateCityDto);
 
 }

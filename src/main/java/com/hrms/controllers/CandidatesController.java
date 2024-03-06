@@ -23,10 +23,10 @@ public class CandidatesController {
         return ResponseEntity.ok(this.candidateService.getAll());
     }
 
-    @GetMapping("/getCandidateDetails")
-    public ResponseEntity<?> getCandidateDetails(){
-        return ResponseEntity.ok(this.candidateService.getCandidateDetailDto());
-    }
+//    @GetMapping("/getCandidateDetails")
+//    public ResponseEntity<?> getCandidateDetails(){
+//        return ResponseEntity.ok(this.candidateService.getCandidateDetailDto());
+//    }
 
     @PostMapping("/add")
     public ResponseEntity<?> add(@Valid @RequestBody CreateCandidateDto candidateAddDto){
@@ -38,8 +38,8 @@ public class CandidatesController {
         return ResponseEntity.ok(this.candidateService.delete(id));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdateCandidateDto updateCandidateDto){
-        return ResponseEntity.ok(this.candidateService.update(id, updateCandidateDto));
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody UpdateCandidateDto updateCandidateDto){
+        return ResponseEntity.ok(this.candidateService.update(updateCandidateDto));
     }
 }

@@ -32,8 +32,8 @@ public class CitiesController {
         return ResponseEntity.ok(this.cityService.delete(id));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @Valid @RequestBody UpdateCityDto updateCityDto){
-        return ResponseEntity.ok(this.cityService.update(id, updateCityDto));
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody UpdateCityDto updateCityDto){
+        return ResponseEntity.ok(this.cityService.update(updateCityDto));
     }
 }

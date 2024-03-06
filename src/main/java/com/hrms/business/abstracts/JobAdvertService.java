@@ -15,6 +15,6 @@ public interface JobAdvertService {
     DataResult<List<GetJobAdvertDetailDto>> getJobAdvertDetails();
     Result add(CreateJobAdvertDto createJobAdvertDto);
     Result delete(int id);
-    Result update(int id, UpdateJobAdvertDto updateJobAdvertDto);
+    Result update(UpdateJobAdvertDto updateJobAdvertDto);
     DataResult<List<JobAdvert>> findByAdvertSituationTrue();
 }

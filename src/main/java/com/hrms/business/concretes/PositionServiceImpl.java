@@ -55,8 +55,8 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public Result update(int id, UpdatePositionDto updatePositionDto) {
-        Optional<Position> resultPosition = this.positionRepository.findById(id);
+    public Result update(UpdatePositionDto updatePositionDto) {
+        Optional<Position> resultPosition = this.positionRepository.findById(updatePositionDto.getPositionId());
         if (resultPosition.isPresent()) {
             resultPosition.get().setPositionName(updatePositionDto.getPositionName());
 

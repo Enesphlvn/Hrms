@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateEmployerDto {
 
+    @Min(value = 1, message = "Lütfen pozitif bir Id değeri girin.")
+    private int id;
+
     @Email(message = "Lütfen email formatında giriniz.")
     @NotBlank(message = "Email alanı zorunludur.")
     @NotNull(message = "Email alanı zorunludur.")

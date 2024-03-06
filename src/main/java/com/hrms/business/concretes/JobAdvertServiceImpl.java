@@ -65,8 +65,8 @@ public class JobAdvertServiceImpl implements JobAdvertService {
     }
 
     @Override
-    public Result update(int id, UpdateJobAdvertDto updateJobAdvertDto) {
-        Optional<JobAdvert> resultJobAdvert = this.jobAdvertRepository.findById(id);
+    public Result update(UpdateJobAdvertDto updateJobAdvertDto) {
+        Optional<JobAdvert> resultJobAdvert = this.jobAdvertRepository.findById(updateJobAdvertDto.getId());
 
         City city = this.cityRepository.getById(updateJobAdvertDto.getCityId());
         Employer employer = this.employerRepository.getById(updateJobAdvertDto.getEmployerId());

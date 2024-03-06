@@ -12,5 +12,5 @@ public interface EmployerService {
     DataResult<List<GetEmployerDto>> getAll();
     Result add(CreateEmployerDto createEmployerDto);
     Result delete(int id);
-    Result update(int id, UpdateEmployerDto updateEmployerDto);
+    Result update(UpdateEmployerDto updateEmployerDto);
 }
